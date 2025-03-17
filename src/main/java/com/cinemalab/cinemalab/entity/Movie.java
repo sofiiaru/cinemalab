@@ -2,15 +2,13 @@ package com.cinemalab.cinemalab.entity;
 
 import com.cinemalab.cinemalab.enums.State;
 import com.cinemalab.cinemalab.enums.Type;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -29,4 +27,9 @@ public class Movie extends BaseEntity{
     private State state;
     private BigDecimal price;
 
+    @ManyToMany
+    @JoinTable(name = "movie_genre_rel",
+    joinColumns = @JoinColumn(name = "movie_id"),
+    inverseJoinColumns = @JoinColumn(name = "genre_id"))
+    private List<Genre> genreList;
 }
